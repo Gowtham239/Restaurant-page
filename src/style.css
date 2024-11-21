@@ -6,12 +6,17 @@
 
 
 header {
+
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(0,0,0,0.5);
     /* padding: 20px; */
     height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 header:hover {
