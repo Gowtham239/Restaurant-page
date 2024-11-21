@@ -1,5 +1,6 @@
 
 // menuPage.js
+import menuList from "./menuList.js";
 
 const menuCatogories = [
     {
@@ -21,32 +22,86 @@ const menuItems = [
     {
         item: "Margherita",
         price: "$12.50",
-        itemRecipie: "Fresh tomatoes, fresh mozzarella, fresh basil"
+        itemRecipie: "Fresh tomatoes, fresh mozzarella, fresh basil",
+        category: "pizza"
     },
     {
         item: "Formaggio",
         price: "$15.50",
-        itemRecipie: "Four cheeses (mozzarella, parmesan, pecorino, jarlsberg)"
+        itemRecipie: "Four cheeses (mozzarella, parmesan, pecorino, jarlsberg)",
+        category: "pizza"
     },
     {
         item: "Chicken",
         price: "$17.00",
-        itemRecipie: "Fresh tomatoes, mozzarella, chicken, onions"
+        itemRecipie: "Fresh tomatoes, mozzarella, chicken, onions",
+        category: "pizza"
     },
     {
         item: "Pineapple'o'clock",
         price: "$16.50",
-        itemRecipie: "Fresh tomatoes, mozzarella, fresh pineapple, bacon, fresh basil"
+        itemRecipie: "Fresh tomatoes, mozzarella, fresh pineapple, bacon, fresh basil",
+        category: "pizza"
     },
     {
         item: "Meat Town",
         price: "$20.00",
-        itemRecipie: "Fresh tomatoes, mozzarella, hot pepporoni, hot sausage, beef, chicken"
+        itemRecipie: "Fresh tomatoes, mozzarella, hot pepporoni, hot sausage, beef, chicken",
+        category: "pizza"
     },
     {
         item: "Parma",
         price: "$21.50",
-        itemRecipie: "Fresh tomatoes, mozzarella, parma, bacon, fresh arugula"
+        itemRecipie: "Fresh tomatoes, mozzarella, parma, bacon, fresh arugula",
+        category: "pizza"
+    }, 
+    {
+        item: "Lasagna",
+        price: "$13.50",
+        itemRecipie: "Special sauce, mozzarella, parmesan, ground beef",
+        category: "salads"
+    },
+    {
+        item: "Ravioli",
+        price: "$14.50",
+        itemRecipie: "Ravioli filled with cheese",
+        category: "salads"
+    },
+    {
+        item: "Seafood pasta",
+        price: "$25.50",
+        itemRecipie: "Salmon, shrimp, lobster, garlic",
+        category: "salads"
+    },
+    {
+        item: "Spaghetti Classica",
+        price: "$11.00",
+        itemRecipie: "Fresh tomatoes, onions, ground beef",
+        category: "salads"
+    },
+    {
+        item: "Today's Soup",
+        price: "$5.50",
+        itemRecipie: "Ask the waiter",
+        category: "statars"
+    },
+    {
+        item: "Bruschetta",
+        price: "$8.50",
+        itemRecipie: "Bread with pesto, tomatoes, onion, garlic",
+        category: "statars"
+    },
+    {
+        item: "Garlic bread",
+        price: "$9.50",
+        itemRecipie: "Grilled ciabatta, garlic butter, onions",
+        category: "statars"
+    },
+    {
+        item: "Tomozzarella",
+        price: "$10.50",
+        itemRecipie: "Tomatoes and mozzarella",
+        category: "statars"
     }
 ]
 
@@ -78,53 +133,37 @@ function menu(content) {
     buttonContainer.classList.add("buttonContainer");
     menuDiv.appendChild(buttonContainer);
 
+    // container for menu items
+    const itemsContainer = document.createElement("div");
+    itemsContainer.classList.add("itemsContainer");
+    menuDiv.appendChild(itemsContainer)
 
     // menu catogories
     menuCatogories.forEach((catogories) => {
         const catogorieBtn = document.createElement("button");
         catogorieBtn.classList.add("menuBtn");
+        catogorieBtn.setAttribute("data-tab-target", catogories.id)
         catogorieBtn.id = catogories.id;
         catogorieBtn.textContent = catogories.text;
+        catogorieBtn.addEventListener("click", () => {
+
+            document.querySelectorAll(".menuBtn").forEach(btn => btn.classList.remove("active"));
+            catogorieBtn.classList.add("active");
+
+            const filteredMenu = menuItems.filter(item => item.category === catogories.id);
+            console.log(filteredMenu);
+            menuList(filteredMenu, itemsContainer);
+        })
         buttonContainer.appendChild(catogorieBtn);
     });
 
-    // menu list
-    
-    const itemsContainer = document.createElement("ul");
-    menuDiv.appendChild(itemsContainer);
+    const defaultMenu = menuItems.filter(item => item.category === "pizza");
+    menuList(defaultMenu, itemsContainer);
 
-    menuItems.forEach(itemsList => {
-    const items = document.createElement("li");
-    items.classList.add("items");
-    itemsContainer.appendChild(items);
-
-    const lineBreak = document.createElement("div");
-    lineBreak.classList.add("lineBreak"); // You can apply styles to this div
-    itemsContainer.appendChild(lineBreak);
-
-
-    const listDiv = document.createElement("div");
-    listDiv.classList.add("listDiv");
-    items.appendChild(listDiv);
-
-    const itemsDiv = document.createElement("div");
-    itemsDiv.classList.add("itemsDiv")
-    listDiv.appendChild(itemsDiv);
-
-    const itemTitle = document.createElement("h1");
-    itemTitle.textContent = itemsList.item;
-    itemsDiv.appendChild(itemTitle);
-
-    const itemPrice = document.createElement("span");
-    itemPrice.classList.add("price");
-    itemPrice.textContent = itemsList.price;
-    itemsDiv.appendChild(itemPrice);
-
-    const recipie = document.createElement("p");
-    recipie.classList.add("recipie");
-    recipie.textContent = itemsList.itemRecipie;
-    listDiv.appendChild(recipie);
-    })
+    const pizzaButton = document.querySelector('[data-tab-target="pizza"]');
+    if (pizzaButton) {
+        pizzaButton.classList.add("active");
+    }
 }
 
 export default menu;
