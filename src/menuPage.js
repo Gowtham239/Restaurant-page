@@ -103,7 +103,7 @@ const menuItems = [
         itemRecipie: "Tomatoes and mozzarella",
         category: "statars"
     }
-]
+];
 
 function menu(content) {
     // Reset body styles 
