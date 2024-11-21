@@ -14,13 +14,13 @@ const leftDiv = [
 
 const rightDiv = [
     {
-        timings: "Mon & Tue CLOSED"
+        timings: "Friday 10:00 - 12:00"
     },
     {
-        timings: "Wednesday 10.00 - 24.00"
+        timings: "Saturday 10:00 - 23:00"
     },
     {
-        timings: "Thursday 10:00 - 24:00"
+        timings: "Sunday Closed"
     }
 ];
 
