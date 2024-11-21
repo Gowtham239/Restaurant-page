@@ -76,6 +76,12 @@ header:hover {
     transition: background 0.3s ease;
 }
 
+.menuBtn.active {
+    background-color: red;
+    color: white;
+    /* border: 1px solid white; */
+}
+
 .the-menu {
     height: 120px;
     width: 400px;    
